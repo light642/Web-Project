@@ -15,9 +15,9 @@
 <script setup>
 import axios from 'axios';
 import {ref} from 'vue'
-import VueCookie from 'vue-cookie';
+//import VueCookie from 'vue-cookie';
 
-const username = VueCookie.get("username")
+let username = ''//VueCookie.get("username")
 /*********/
 username="user1"
 /*********/
@@ -29,5 +29,6 @@ axios.get('/message/'+username).then((res)=>{
 
 const logout = ()=>{
     alert("logout clicked")
+    axios.delete('/session',username)
 }
 </script>

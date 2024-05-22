@@ -41,9 +41,9 @@ let test = false;
 import { ref } from 'vue';
 import RoomDetails from '@/components/RoomDetails.vue';
 import axios from 'axios';
-import VueCookie from 'vue-cookie';
+//import VueCookie from 'vue-cookie';
 
-const username = VueCookie.get("username")
+let username = ''//VueCookie.get("username")
 /*********/
 username="admin1"
 /*********/
@@ -62,7 +62,7 @@ const pageTo=()=>{
 
 //初始化房间列表
 const roomData = ref([])
-const filterParams = ref({});
+const filterParams = ref({})
 const currentRoomList=ref([])
 const refreshRoomData = () => {
     roomData.value=[];

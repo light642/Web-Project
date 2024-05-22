@@ -8,11 +8,6 @@
             <el-table-column prop="id" label="编号" width="100px"/>
             <el-table-column prop="roomType" label="类型" width="100px"/>
             <el-table-column prop="location" label="位置" width="100px" />
-            <el-table-column prop="" label="使用情况" width="100px">
-                <template v-if="true" v-slot:default="scope">
-                    <el-button link type="primary" @click.prevent="showStatus(scope.$index)">点击查看</el-button>
-                </template>
-            </el-table-column>
             <el-table-column label="操作">
                 <template v-if="true" v-slot:default="scope">
                     <el-button type="danger" @click=blockRoom(scope.$index)>停用</el-button>
@@ -29,9 +24,9 @@
 import { ref } from 'vue';
 import NewRoom from '@/components/admin/NewRoom.vue';
 import axios from 'axios';
-import VueCookie from 'vue-cookie';
+//import VueCookie from 'vue-cookie';
 
-const username = VueCookie.get("username")
+let username = ''//VueCookie.get("username")
 /*********/
 username="admin1"
 /*********/
@@ -43,24 +38,25 @@ axios.get("/room").then(res => {
 
 const addDialogVisible = ref(false);
 
-
-const showStatus = (index) => {
-    alert("room status " + index + " clicked 待实现");
-}
-
-
 const blockRoom = (index) => {
-    alert('block ' + index + ' clicked 待实现');
+    const startTime = new Date("2021-01-01");
+    const endTime = new Date("2022-01-01");
+    const params={
+        room_id: tableData.value[index].id,
+        username: username,
+        startTime: startTime,
+        endTime: endTime
+    }
+    axios.post('/block'+params);
 }
 
 
 const deleteMeetingRoom = (index) => {
-    alert("delete room " + index + '待实现');
-    //const params = {id: tableData.value[index].id}
-    //axios.delete('/room/'+params);
-    //tableData.value=[];
-    //axios.get('/room').then((res)=>{
-    //    for(let i in res.data) tableData.value.push(res.data[i]);
-    //})
+    const params = {id: tableData.value[index].id}
+    axios.delete('/room/'+params);
+    tableData.value=[];
+    axios.get('/room').then((res)=>{
+        for(let i in res.data) tableData.value.push(res.data[i]);
+    })
 }
 </script>

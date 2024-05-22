@@ -7,7 +7,7 @@
             <el-table-column prop="end" label="结束时间" width="150px" />
             <el-table-column label=" " width="120">
                 <template #default="scope">
-                    <el-button link type="primary" size="small" @click.prevent="cancelRes(scope.$index)">
+                    <el-button link type="primary" size="small" @click.prevent="cancelBlock=(scope.$index)">
                         取消
                     </el-button>
                 </template>
@@ -30,13 +30,12 @@ axios.get('/blocks').then((res)=>{
 })
 
 
-const cancelRes = (index) => {
-    alert("delete room " + index);
-    //const params = {id: tableData.value[index].id}
-    //axios.delete('/block/'+params);
-    //tableData.value=[];
-    //axios.get('/blocks').then((res)=>{
-    //    for(let i in res.data) tableData.value.push(res.data[i]);
-    //})
+const cancelBlock = (index) => {
+    const params = {id: tableData.value[index].id}
+    axios.delete('/block/'+params);
+    tableData.value=[];
+    axios.get('/blocks').then((res)=>{
+        for(let i in res.data) tableData.value.push(res.data[i]);
+    })
 }
 </script>

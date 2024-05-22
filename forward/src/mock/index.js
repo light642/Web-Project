@@ -18,6 +18,7 @@ Mock
     .mock('/room/1','delete',true)//删除房间1
 
     .mock('/session',"post",true)//登录
+    .mock('/session',"delete",true)//退出登录
     .mock('/user',"post",true)//注册
 
     .mock('/message/user1','get', data)//user1的消息列表

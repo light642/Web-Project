@@ -20,9 +20,9 @@
 <script setup>
 import { ref } from 'vue';
 import axios from 'axios';
-import VueCookie from 'vue-cookie';
+//import VueCookie from 'vue-cookie';
 
-const username = VueCookie.get("username")
+let username = ""//VueCookie.get("username")
 /*********/
 username="user1"
 /*********/
@@ -33,11 +33,10 @@ axios.get('/reservation/'+username).then((res)=>{
 })
 
 const cancelReservation = (index) => {
-    alert("delete room " + index);
-    //axios.delete('/reservation/' + tableData.value[index].id);
-    //tableData.value=[];
-    //axios.get('/reservation/'+username).then((res)=>{
-    //    for(let i in res.data) tableData.value.push(res.data[i]);
-    //})
+    axios.delete('/reservation/' + tableData.value[index].id);
+    tableData.value=[];
+    axios.get('/reservation/'+username).then((res)=>{
+        for(let i in res.data) tableData.value.push(res.data[i]);
+    })
 }
 </script>
