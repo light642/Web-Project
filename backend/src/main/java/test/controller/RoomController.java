@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import test.entity.Room;
 import test.service.RoomService;
+import test.tag.AdminRequired;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,6 +28,7 @@ public class RoomController {
     public Room getRoomDetail(@PathVariable int id) {
         return roomService.getById(id);
     }
+    @AdminRequired
     @PostMapping("/room")
     public void newRoom(Room room, MultipartFile file){
         try{
@@ -40,6 +42,7 @@ public class RoomController {
             logger.warn(e.getMessage());
         }
     }
+    @AdminRequired
     @DeleteMapping("/room/{id}")
     public boolean deleteRoom(@PathVariable int id){
         roomService.removeById(id);
