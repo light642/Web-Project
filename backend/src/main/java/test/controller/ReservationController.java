@@ -42,8 +42,8 @@ public class ReservationController {
         reservationService.blockFor(reservation);
         return true;
     }
-    @DeleteMapping("/block")
-    public boolean releaseRoom(int id){//管理员恢复房间使用
+    @DeleteMapping("/block/{id}")
+    public boolean releaseRoom(@PathVariable int id){//管理员恢复房间使用
         reservationService.removeById(id);
         return true;
     }

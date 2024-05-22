@@ -27,7 +27,7 @@ public class UserController {
         return true;
     }
 
-    @PutMapping("/user")
+    @PostMapping("/user")
     public void register(User user, HttpSession session, HttpServletResponse response){
         user.setRole("user");
         userService.save(user);
