@@ -8,6 +8,7 @@ import java.util.List;
 public interface ReservationService extends IService<Reservation> {
     List<Reservation> getByUsername(String username);
     List<Reservation> getByRoomId(int id);
+    List<Reservation> getBlock();
     void blockFor(Reservation reservation);
 
 }

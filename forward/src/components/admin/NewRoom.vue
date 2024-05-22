@@ -41,18 +41,7 @@ const addMeetingRoom = () => {
         if (valid) {
             addDialogLoading.value = true;
             // 模拟异步请求
-            axios.post("/meetingRoom/createMeetingRoom/", newMeetingRoom.value).then((res) => {
-                console.log(res.data.code)
-                console.log(res.data.code == 200)
-
-                if (res.data.code === 200) {
-                    this.$message.success("添加会议室成功")
-                    //getMeetingRoomList()
-                }
-            }).catch((err) => {
-                console.log(err)
-                this.$message.error("内部异常，添加失败")
-            });
+            axios.post("/room", newMeetingRoom.value);
             addDialogLoading.value = false;
             //getMeetingRoomList()
         }

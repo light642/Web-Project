@@ -16,7 +16,7 @@ import java.util.Map;
 @RestController
 public class UserController {
     UserService userService;
-    @PostMapping("/login")
+    @PostMapping("/session")
     public boolean login(User user, HttpSession session, HttpServletResponse response){
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.allEq(Map.of("username",user.getUsername(),"password",user.getPassword()));
@@ -27,7 +27,7 @@ public class UserController {
         return true;
     }
 
-    @PutMapping("/register")
+    @PutMapping("/user")
     public void register(User user, HttpSession session, HttpServletResponse response){
         user.setRole("user");
         userService.save(user);

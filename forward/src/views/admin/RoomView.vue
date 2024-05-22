@@ -29,10 +29,14 @@
 import { ref } from 'vue';
 import NewRoom from '@/components/admin/NewRoom.vue';
 import axios from 'axios';
+import VueCookie from 'vue-cookie';
 
-
+const username = VueCookie.get("username")
+/*********/
+username="admin1"
+/*********/
 const tableData = ref([]);
-axios.get("/room/admin/").then(res => {
+axios.get("/room").then(res => {
     for (let i in res.data) tableData.value.push(res.data[i]);
 })
 
@@ -53,9 +57,9 @@ const blockRoom = (index) => {
 const deleteMeetingRoom = (index) => {
     alert("delete room " + index + '待实现');
     //const params = {id: tableData.value[index].id}
-    //axios.delete('/reservation/user',{params});
+    //axios.delete('/room/'+params);
     //tableData.value=[];
-    //axios.get('/reservation/user').then((res)=>{
+    //axios.get('/room').then((res)=>{
     //    for(let i in res.data) tableData.value.push(res.data[i]);
     //})
 }

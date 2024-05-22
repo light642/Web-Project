@@ -31,6 +31,10 @@ public class ReservationController {
         reservationService.removeById(id);
     }
 
+    @GetMapping("/block")
+    public List<Reservation> roomReservation(){
+        return reservationService.getBlock();
+    }
     @PostMapping("/block")
     public boolean blockRoom(Reservation reservation){//管理员停用房间
         reservation.setType("block");

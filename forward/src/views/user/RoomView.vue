@@ -41,7 +41,12 @@ let test = false;
 import { ref } from 'vue';
 import RoomDetails from '@/components/RoomDetails.vue';
 import axios from 'axios';
+import VueCookie from 'vue-cookie';
 
+const username = VueCookie.get("username")
+/*********/
+username="admin1"
+/*********/
 //页面初始化
 const currentPage=ref(1)
 const pageTo=()=>{
@@ -57,10 +62,11 @@ const pageTo=()=>{
 
 //初始化房间列表
 const roomData = ref([])
+const filterParams = ref({});
 const currentRoomList=ref([])
 const refreshRoomData = () => {
     roomData.value=[];
-    axios.get('/room/user').then((res) => {
+    axios.get('/room',filterParams).then((res) => {
         for (let i in res.data) roomData.value.push(res.data[i]);
         
         currentPage.value=1;
@@ -70,24 +76,20 @@ const refreshRoomData = () => {
 }
 refreshRoomData();
 
-//筛选器
 const typeFilter = ref('');
 const options = ref([
     'option1', 'option2', 'option3'
 ]);
 const dateSelected = ref([]);
-const filterParams = ref({});
 const filter = () => {
     if (test == true) { alert('filter clicked!'); return }
 
     filterParams.value = {
-        type: typeFilter.value,
-        start: dateSelected.value ? dateSelected.value[0] : null,
-        end: dateSelected.value ? dateSelected.value[1] : null
+        roomType: typeFilter.value,
+        startTime: dateSelected.value ? dateSelected.value[0] : null,
+        endTime: dateSelected.value ? dateSelected.value[1] : null
     };
-    axios.post('room/user/filter', filterParams.value).then(() => {
-        refreshRoomData();
-    });
+    refreshRoomData();
 }
 
 //房间详情
@@ -99,6 +101,5 @@ const showDetails = (index) => {
     showRoomDetails.value.visable = true;
     showRoomDetails.value.index = index+currentPage.value*16-16;
 }
-
 
 </script>

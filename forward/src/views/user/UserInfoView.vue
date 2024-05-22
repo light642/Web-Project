@@ -15,11 +15,15 @@
 <script setup>
 import axios from 'axios';
 import {ref} from 'vue'
+import VueCookie from 'vue-cookie';
 
-const userId = ref('user');
+const username = VueCookie.get("username")
+/*********/
+username="user1"
+/*********/
 
 const info = ref([])
-axios.get('/message/'+userId.value).then((res)=>{
+axios.get('/message/'+username).then((res)=>{
     for(let i in res.data) info.value.push(res.data[i]);
 })
 

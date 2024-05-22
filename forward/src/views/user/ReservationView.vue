@@ -20,19 +20,23 @@
 <script setup>
 import { ref } from 'vue';
 import axios from 'axios';
+import VueCookie from 'vue-cookie';
 
-//const userId = ref('user')
+const username = VueCookie.get("username")
+/*********/
+username="user1"
+/*********/
 
 const tableData = ref([])
-axios.get('/reservation/user').then((res)=>{
+axios.get('/reservation/'+username).then((res)=>{
     for(let i in res.data) tableData.value.push(res.data[i]);
 })
 
 const cancelReservation = (index) => {
     alert("delete room " + index);
-    //axios.delete('/reservation/'+ userId + '/' + tableData.value[index].id);
+    //axios.delete('/reservation/' + tableData.value[index].id);
     //tableData.value=[];
-    //axios.get('/reservation/user').then((res)=>{
+    //axios.get('/reservation/'+username).then((res)=>{
     //    for(let i in res.data) tableData.value.push(res.data[i]);
     //})
 }

@@ -28,6 +28,11 @@ public class ReservationServiceImpl extends ServiceImpl<ReservationMapper,Reserv
     }
 
     @Override
+    public List<Reservation> getBlock() {
+        return getBaseMapper().selectList(null);
+    }
+
+    @Override
     public void blockFor(Reservation reservation) {
         //预约的结束时间晚于停用开始时间且预约的开始时间早于停用结束时间时，删除预约，向用户发送通知
         QueryWrapper<Reservation> queryWrapper = new QueryWrapper<>();
