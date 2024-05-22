@@ -1,27 +1,30 @@
 package test.entity;
 
-import test.common.RoomType;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 
 public class Room {
-    private int id;
+    @TableId(type = IdType.AUTO)
+    private Integer id;
 
-    private RoomType type;
+    private String roomType;
     private String location;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public RoomType getType() {
-        return type;
+    public String getRoomType() {
+        return roomType;
     }
 
-    public void setType(RoomType type) {
-        this.type = type;
+    public void setRoomType(String roomType) {
+        this.roomType = roomType;
     }
 
     public String getLocation() {

@@ -8,13 +8,11 @@ import test.entity.UserMessage;
 import test.mapper.UserMessageMapper;
 import test.service.UserMessageService;
 
-import java.util.ArrayList;
 import java.util.List;
 @Service
 public class UserMessageServiceImpl extends ServiceImpl<UserMessageMapper, UserMessage> implements UserMessageService {
     @Override
     public List<UserMessage> getMessage(String  username) {
-        List<UserMessage> userMessages = new ArrayList<>();
         QueryWrapper<UserMessage> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username",username);
         return getBaseMapper().selectList(queryWrapper);
@@ -24,7 +22,7 @@ public class UserMessageServiceImpl extends ServiceImpl<UserMessageMapper, UserM
     public void addMessage(Reservation reservation) {
         UserMessage userMessage =new UserMessage();
         userMessage.setUsername(reservation.getUsername());
-        userMessage.setMessage("您预约于"+reservation.getStartTime()+"到"+reservation.getEndTime()+"的房间(房间号"+reservation.getRoomId()+")由于维修等原因无法使用，已自动取消，请重新预约");
+        userMessage.setMessage("您预约从"+reservation.getStartTime()+"到"+reservation.getEndTime()+"的房间(房间号"+reservation.getRoomId()+")由于维修等原因无法使用，已自动取消，请重新预约");
         getBaseMapper().insert(userMessage);
     }
 }

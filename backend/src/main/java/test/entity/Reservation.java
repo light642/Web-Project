@@ -1,11 +1,13 @@
 package test.entity;
 
+import java.sql.Date;
+
 public class Reservation {
-    private int id;
-    private int roomId;
+    private Integer id;
+    private Integer roomId;
     private String username;
-    private int startTime;
-    private int endTime;
+    private Date startTime;
+    private Date endTime;
     private String type;
 
     public String getType() {
@@ -16,19 +18,19 @@ public class Reservation {
         this.type = type;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getRoomId() {
+    public Integer getRoomId() {
         return roomId;
     }
 
-    public void setRoomId(int roomId) {
+    public void setRoomId(Integer roomId) {
         this.roomId = roomId;
     }
 
@@ -40,19 +42,19 @@ public class Reservation {
         this.username = username;
     }
 
-    public int getStartTime() {
+    public Date getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(int startTime) {
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
-    public int getEndTime() {
+    public Date getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(int endTime) {
+    public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
 }

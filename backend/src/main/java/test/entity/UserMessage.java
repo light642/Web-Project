@@ -1,20 +1,20 @@
 package test.entity;
 
 public class UserMessage {
-    int id;
+    Integer id;
     String username;
     String message;
 
-    public int getId() {
+    public Integer getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getUsername() {
         return username;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public void setUsername(String username) {

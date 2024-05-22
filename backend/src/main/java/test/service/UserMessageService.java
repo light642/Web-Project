@@ -7,6 +7,6 @@ import test.entity.UserMessage;
 import java.util.List;
 
 public interface UserMessageService extends IService<UserMessage> {
-    public List<UserMessage> getMessage(String username);
-    public void addMessage(Reservation reservation);
+    List<UserMessage> getMessage(String username);
+    void addMessage(Reservation reservation);
 }

@@ -15,31 +15,30 @@ import java.util.List;
 @RestController
 public class RoomController {
     private RoomService roomService;
-    String BASE_DIR = "C:\\Users\\Lenovo\\IdeaProjects\\demoSpring\\src\\main\\resources\\static\\images\\";
+    String BASE_DIR = "C:\\Users\\Lenovo\\Documents\\Workspace\\Web Project\\backend\\src\\main\\resources\\static\\images\\";
     Logger logger = LoggerFactory.getLogger(getClass());
 
-    @GetMapping("/room/")
-    public List<Room> getRoomList() {//用户获取房间列表
-        return roomService.getRoom();
+    @GetMapping("/room")
+    public List<Room> getRoomList(String roomType, String startTime, String endTime) {
+        return roomService.getRoom(roomType,startTime,endTime);
     }
 
     @GetMapping("/room/{id}")
-    public Room getRoomDetail(@PathVariable int id) {//用户获取房间详情
-        return roomService.getRoomDetail(id);
+    public Room getRoomDetail(@PathVariable int id) {
+        return roomService.getById(id);
     }
     @PostMapping("/room")
-    public boolean newRoom(Room room, MultipartFile file)
-    {
+    public void newRoom(Room room, MultipartFile file){
         try{
-
+            roomService.save(room);
+            System.out.println(BASE_DIR + room.getId()+".jpg");
             File uploadFile = new File(BASE_DIR + room.getId()+".jpg");
+            uploadFile.createNewFile();
             file.transferTo(uploadFile);
 
         } catch (IOException e) {
             logger.warn(e.getMessage());
         }
-        roomService.save(room);
-        return true;
     }
     @DeleteMapping("/room/{id}")
     public boolean deleteRoom(@PathVariable int id){

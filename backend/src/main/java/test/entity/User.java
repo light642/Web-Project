@@ -1,9 +1,9 @@
 package test.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
-import org.apache.ibatis.annotations.Mapper;
 
 public class User {
+    @TableId(value = "username")
     private String username;
     private String password;
     private String role;

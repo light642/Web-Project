@@ -6,6 +6,5 @@ import test.entity.Room;
 import java.util.List;
 
 public interface RoomService extends IService<Room> {
-    public List<Room> getRoom();
-    public Room getRoomDetail(int id);
+    List<Room> getRoom(String roomType,String startTime,String endTime);
 }

@@ -1,6 +1,5 @@
 package test.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import test.entity.Reservation;
@@ -11,8 +10,8 @@ import java.util.List;
 @RestController
 public class ReservationController {
     private ReservationService reservationService;
-    @GetMapping("/reservation/user/")
-    public List<Reservation> userReservation(@CookieValue String username) {//用户预约列表
+    @GetMapping("/reservation/{username}")
+    public List<Reservation> userReservation(@PathVariable String username) {//用户预约列表
         return reservationService.getByUsername(username);
     }
 
@@ -22,6 +21,7 @@ public class ReservationController {
     }
     @PostMapping("/reservation")//用户预约房间
     public boolean newReservation(Reservation reservation) {
+        reservation.setType("reservation");
         reservationService.save(reservation);
         return true;
     }
@@ -33,6 +33,8 @@ public class ReservationController {
 
     @PostMapping("/block")
     public boolean blockRoom(Reservation reservation){//管理员停用房间
+        reservation.setType("block");
+        reservationService.save(reservation);
         reservationService.blockFor(reservation);
         return true;
     }

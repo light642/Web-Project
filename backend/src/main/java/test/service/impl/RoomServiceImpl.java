@@ -11,12 +11,8 @@ import java.util.List;
 public class RoomServiceImpl extends ServiceImpl<RoomMapper, Room> implements RoomService {
 
     @Override
-    public List<Room> getRoom() {
+    public List<Room> getRoom(String roomType, String startTime, String endTime) {
+        //待实现的筛选
         return getBaseMapper().selectList(null);
-    }
-
-    @Override
-    public Room getRoomDetail(int id) {
-        return getBaseMapper().selectById(id);
     }
 }
