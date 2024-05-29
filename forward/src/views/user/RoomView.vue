@@ -37,13 +37,10 @@
 </template>
 <script setup>
 let test = false;
-//test = true;
+
 import { ref } from 'vue';
 import RoomDetails from '@/components/RoomDetails.vue';
 import axios from 'axios';
-//import VueCookie from 'vue-cookie';
-
-let username = ''//VueCookie.get("username")
 /*********/
 username="admin1"
 /*********/
