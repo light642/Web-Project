@@ -15,8 +15,6 @@ import { ref } from 'vue';
 import axios from 'axios'
 import VueCookie from 'vue-cookie';
 
-const username = ref(VueCookie.get("username") || "");
-
 const tableData = ref([])
 axios.get('/room/id').then((res)=>{
     for(let i in res.data) tableData.value.push(res.data[i]);

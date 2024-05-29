@@ -18,9 +18,6 @@
 <script setup>
 import { ref } from 'vue';
 import axios from 'axios';
-import VueCookie from 'vue-cookie';
-
-const username = VueCookie.get("username")
 /*********/
 username="admin1"
 /*********/
