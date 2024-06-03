@@ -9,17 +9,15 @@
                     end-placeholder="结束时间" value-format="YYYY-MM-DD" />
                 <el-button @click="filter">筛选</el-button>
             </el-header>
-
             <el-main>
                 <el-space wrap>
                     <el-card shadow="hover" v-for="(room, index) in currentRoomList" :key="room.id"
                         @click.prevent="showDetails(index)" class="box-card">
-                        <div style="height: 100px;width: 100px;background-color: aqua;">img</div>
-                        {{ room.roomType }}
+                        <div><el-image style="width: 100px; height: 100px" :src="getUrl(room)" /></div>
+                        <span>{{ room.roomType }}</span>
                     </el-card>
                 </el-space>
             </el-main>
-
             <el-footer>
                 <el-pagination background layout="prev, pager, next" 
                 v-model:current-page="currentPage" 
@@ -29,61 +27,50 @@
                 />
             </el-footer>
 
-            <el-dialog v-model="showRoomDetails.visable">
-                <room-details :room="roomData[showRoomDetails.index]" />
+            <el-dialog v-model="showRoomDetails.visable" style="max-width: 450px;">
+                <room-details :room="roomData[showRoomDetails.index]" @reserve-success="showRoomDetails.visable=!showRoomDetails.visable" style="max-width: 400px;"/>
             </el-dialog>
         </el-container>
     </div>
 </template>
 <script setup>
-let test = false;
-//test = true;
 import { ref } from 'vue';
 import RoomDetails from '@/components/RoomDetails.vue';
 import axios from 'axios';
-//import VueCookie from 'vue-cookie';
+import { relogin } from '@/script/script';
 
-let username = ''//VueCookie.get("username")
-/*********/
-username="admin1"
-/*********/
-//页面初始化
 const currentPage=ref(1)
 const pageTo=()=>{
     currentRoomList.value=[]
     let start=16*(currentPage.value-1);
     let end=(start+16>roomData.value.length) ? roomData.value.length : (start+16);
-    console.log(start+' '+end);
     while(start!=end&&roomData.value[start]!=null){
         currentRoomList.value.push(roomData.value[start++]);
     }
-    console.log(currentRoomList.value)
 }
-
-//初始化房间列表
+const getUrl=(room)=>{
+    if(room==null) return null;
+    return "http://localhost:8089/images/"+room.id+".png"
+}
 const roomData = ref([])
 const filterParams = ref({})
 const currentRoomList=ref([])
 const refreshRoomData = () => {
     roomData.value=[];
-    axios.get('/room',filterParams).then((res) => {
+    axios.get('/room',{ params:filterParams.value }).then((res) => {
         for (let i in res.data) roomData.value.push(res.data[i]);
-        
         currentPage.value=1;
         pageTo();
-    })
-
+    }).catch(relogin)
 }
 refreshRoomData();
 
 const typeFilter = ref('');
 const options = ref([
-    'option1', 'option2', 'option3'
+    'type1', 'type2', 'type3'
 ]);
 const dateSelected = ref([]);
 const filter = () => {
-    if (test == true) { alert('filter clicked!'); return }
-
     filterParams.value = {
         roomType: typeFilter.value,
         startTime: dateSelected.value ? dateSelected.value[0] : null,
@@ -91,8 +78,6 @@ const filter = () => {
     };
     refreshRoomData();
 }
-
-//房间详情
 const showRoomDetails = ref({
     visable: false,
     index: ''
@@ -101,5 +86,4 @@ const showDetails = (index) => {
     showRoomDetails.value.visable = true;
     showRoomDetails.value.index = index+currentPage.value*16-16;
 }
-
 </script>

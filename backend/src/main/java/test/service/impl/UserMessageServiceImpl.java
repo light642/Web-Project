@@ -22,7 +22,7 @@ public class UserMessageServiceImpl extends ServiceImpl<UserMessageMapper, UserM
     public void addMessage(Reservation reservation) {
         UserMessage userMessage =new UserMessage();
         userMessage.setUsername(reservation.getUsername());
-        userMessage.setMessage("您预约从"+reservation.getStartTime()+"到"+reservation.getEndTime()+"的房间(房间号"+reservation.getRoomId()+")由于维修等原因无法使用，已自动取消，请重新预约");
+        userMessage.setMessage("您预约从"+reservation.getStartTime()+"到"+reservation.getEndTime()+"的房间("+reservation.getRoomId()+")由于维修等原因无法使用，已自动取消，请重新预约");
         getBaseMapper().insert(userMessage);
     }
 }

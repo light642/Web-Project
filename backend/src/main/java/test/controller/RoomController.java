@@ -33,11 +33,10 @@ public class RoomController {
     public void newRoom(Room room, MultipartFile file){
         try{
             roomService.save(room);
-            System.out.println(BASE_DIR + room.getId()+".jpg");
-            File uploadFile = new File(BASE_DIR + room.getId()+".jpg");
-            uploadFile.createNewFile();
+            File uploadFile = new File(BASE_DIR + room.getId()+".png");
+            if(!uploadFile.exists())
+                if(!uploadFile.mkdir()) throw new IOException("failed to mkdir");
             file.transferTo(uploadFile);
-
         } catch (IOException e) {
             logger.warn(e.getMessage());
         }
@@ -46,7 +45,7 @@ public class RoomController {
     @DeleteMapping("/room/{id}")
     public boolean deleteRoom(@PathVariable int id){
         roomService.removeById(id);
-        File deletingFile = new File(BASE_DIR+id+".jpg");
+        File deletingFile = new File(BASE_DIR+id+".png");
         return deletingFile.delete();
     }
     @Autowired

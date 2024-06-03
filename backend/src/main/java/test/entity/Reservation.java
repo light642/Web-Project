@@ -1,8 +1,13 @@
 package test.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+
+import java.lang.reflect.Type;
 import java.sql.Date;
 
 public class Reservation {
+    @TableId(type= IdType.AUTO)
     private Integer id;
     private Integer roomId;
     private String username;

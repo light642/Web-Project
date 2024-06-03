@@ -2,11 +2,9 @@
     <div class="ReservationView">
         <h1>预约情况</h1>
         <el-table :data="tableData">
-            <el-table-column prop="roomId" label="录播室" width="70px" />
-            <el-table-column prop="roomId" label="类型" width="70px" />
-            <el-table-column prop="roomId" label="地点" width="100px" />
-            <el-table-column prop="start" label="开始时间" width="100px" />
-            <el-table-column prop="end" label="结束时间" width="100px" />
+            <el-table-column prop="roomId" label="录播室" width="100px" />
+            <el-table-column prop="startTime" label="开始时间" width="200px" />
+            <el-table-column prop="endTime" label="结束时间" width="200px" />
             <el-table-column label=" " width="80">
                 <template #default="scope">
                     <el-button link type="primary" size="small" @click.prevent="cancelReservation(scope.$index)">
@@ -20,23 +18,19 @@
 <script setup>
 import { ref } from 'vue';
 import axios from 'axios';
-//import VueCookie from 'vue-cookie';
-
-let username = ""//VueCookie.get("username")
-/*********/
-username="user1"
-/*********/
+import { relogin } from '@/script/script';
 
 const tableData = ref([])
-axios.get('/reservation/'+username).then((res)=>{
-    for(let i in res.data) tableData.value.push(res.data[i]);
-})
+
+function getTableData() {
+    tableData.value = [];
+    axios.get('/reservation').then((res) => {
+        for (let i in res.data) tableData.value.push(res.data[i]);
+    }).catch(relogin)
+}
+getTableData()
 
 const cancelReservation = (index) => {
-    axios.delete('/reservation/' + tableData.value[index].id);
-    tableData.value=[];
-    axios.get('/reservation/'+username).then((res)=>{
-        for(let i in res.data) tableData.value.push(res.data[i]);
-    })
+    axios.delete('/reservation/' + tableData.value[index].id).finally(getTableData);
 }
 </script>
